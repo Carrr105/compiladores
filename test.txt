@@ -1,0 +1,5 @@
+program test;
+VARS int: i, j;
+main(){
+    
+}
