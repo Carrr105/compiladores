@@ -1,4 +1,4 @@
-# Proyecto final de Diseño de Compiladores
+# Proyecto final de Diseño de Compiladores (gpo 2)
 
 Primer avance al viernes 1 de octubre de 2021: análisis de léxico y sintaxis (scanner y parser). Implementado con flex&bison
 
