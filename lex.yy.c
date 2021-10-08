@@ -1033,12 +1033,12 @@ return CTESTRING;
 case 47:
 /* rule 47 can match eol */
 YY_RULE_SETUP
-#line 53 "scanner.l"
+#line 52 "scanner.l"
 ;
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 54 "scanner.l"
+#line 53 "scanner.l"
 ECHO;
 	YY_BREAK
 #line 1045 "lex.yy.c"
@@ -2038,7 +2038,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 54 "scanner.l"
+#line 53 "scanner.l"
 
 
 

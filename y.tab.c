@@ -169,9 +169,21 @@
 #line 1 "parser.y"
 
   void yyerror(const char *s);
-  #include <stdio.h>
-  #include <stdlib.h>
+  #include "SymbolTable.h"           /* The Symbol Table Module    */
   extern FILE* yyin;
+  install ( char *sym_name )
+{  symrec *s;
+   s = getsym (sym_name);
+   if (s == 0)
+        s = putsym (sym_name);
+   else { 
+          printf( "%s is already defined\n", sym_name );
+   }
+}
+context_check( char *sym_name )
+{ if ( getsym( sym_name ) == 0 ) 
+     printf( "%s is an undeclared identifier\n", sym_name );
+}
   int yylex();
 
 
@@ -194,7 +206,14 @@
 #endif
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE
+#line 21 "parser.y"
+{                  /* SEMANTIC RECORD            */
+char    *id;              /* For returning identifiers  */
+}
+/* Line 193 of yacc.c.  */
+#line 216 "y.tab.c"
+	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 # define YYSTYPE_IS_TRIVIAL 1
@@ -206,7 +225,7 @@ typedef int YYSTYPE;
 
 
 /* Line 216 of yacc.c.  */
-#line 210 "y.tab.c"
+#line 229 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -551,16 +570,16 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    18,    18,    19,    20,    21,    24,    25,    28,    29,
-      30,    33,    35,    37,    39,    41,    43,    45,    47,    49,
-      51,    53,    55,    57,    59,    61,    63,    67,    70,    71,
-      72,    73,    76,    77,    78,    81,    82,    83,    84,    87,
-      88,    89,    90,    91,    92,    93,    96,    97,   100,   103,
-     106,   109,   110,   111,   112,   115,   117,   119,   121,   122,
-     125,   126,   129,   130,   133,   134,   137,   138,   139,   140,
-     143,   144,   145,   148,   149,   150,   153,   154,   155,   156,
-     157,   160,   161,   162,   165,   166,   167,   168,   169,   170,
-     171
+       0,    34,    34,    35,    36,    37,    40,    41,    44,    45,
+      46,    49,    51,    53,    55,    57,    59,    61,    63,    65,
+      67,    69,    71,    73,    75,    77,    79,    83,    86,    87,
+      88,    89,    92,    93,    94,    97,    98,    99,   100,   103,
+     104,   105,   106,   107,   108,   109,   112,   113,   116,   119,
+     122,   125,   126,   127,   128,   131,   133,   135,   137,   138,
+     141,   142,   145,   146,   149,   150,   153,   154,   155,   156,
+     159,   160,   161,   164,   165,   166,   169,   170,   171,   172,
+     173,   176,   177,   178,   181,   182,   183,   184,   185,   186,
+     187
 };
 #endif
 
@@ -1625,7 +1644,7 @@ yyreduce:
     {
       
 /* Line 1267 of yacc.c.  */
-#line 1629 "y.tab.c"
+#line 1648 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1839,7 +1858,7 @@ yyreturn:
 }
 
 
-#line 178 "parser.y"
+#line 194 "parser.y"
 
 
 int main() {

@@ -49,7 +49,6 @@ write                       return WRITE;
 ([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9])        return CTEI;
 [+-]?([0-9]*[.])?[0-9]+     return CTEF;
 %([^.]+?)%                  return CTESTRING;
-
 [ \t\n]                     ;
 %%
 

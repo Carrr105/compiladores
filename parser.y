@@ -1,15 +1,32 @@
 %{
   void yyerror(const char *s);
-  #include <stdio.h>
-  #include <stdlib.h>
+  #include "SymbolTable.h"           /* The Symbol Table Module    */
   extern FILE* yyin;
+  install ( char *sym_name )
+{  symrec *s;
+   s = getsym (sym_name);
+   if (s == 0)
+        s = putsym (sym_name);
+   else { 
+          printf( "%s is already defined\n", sym_name );
+   }
+}
+context_check( char *sym_name )
+{ if ( getsym( sym_name ) == 0 ) 
+     printf( "%s is an undeclared identifier\n", sym_name );
+}
   int yylex();
 %}
+
+%union {                  /* SEMANTIC RECORD            */
+char    *id;              /* For returning identifiers  */
+}
 
 %token PROGRAM VARS IF ELSE PRINT CHAR MAIN FUNCTION COMMA RETURN READ WRITE WHILE GREATEREQUAL
 %token INT FLOAT ID SEMICOLON PLUS MINUS DIVIDE MULTIPLY EQUALS QUOTATIONMARK FOR LESSEQUAL
 %token OPENPARENTHESES CLOSEPARENTHESES DOT TWODOTS OPENBRACKET CLOSEBRACKET DO AND
 %token OPENBRACE CLOSEBRACE DIFFERENT GREATER LESS CTEF CTEI CTESTRING THEN TO OR EQUALS_BOOLEAN
+%token <id> IDENT /* Simple identifier */
 
 %start programa
 
@@ -67,8 +84,8 @@ funciones: FUNCTION tipo ID OPENPARENTHESES params CLOSEPARENTHESES SEMICOLON
 vars: VARS tipo TWODOTS params SEMICOLON
     ;
 
-params: ID
-        | ID OPENBRACKET paramsP CLOSEBRACKET
+params: ID { install( $1 ); }
+        | ID OPENBRACKET paramsP CLOSEBRACKET 
         | ID OPENBRACKET paramsP CLOSEBRACKET COMMA params
         | ID COMMA params
         ;
