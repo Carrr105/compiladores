@@ -84,7 +84,8 @@
      THEN = 300,
      TO = 301,
      OR = 302,
-     EQUALS_BOOLEAN = 303
+     EQUALS_BOOLEAN = 303,
+     IDENT = 304
    };
 #endif
 /* Tokens.  */
@@ -134,6 +135,7 @@
 #define TO 301
 #define OR 302
 #define EQUALS_BOOLEAN 303
+#define IDENT 304
 
 
 
@@ -141,11 +143,11 @@
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
 #line 21 "parser.y"
-{                  /* SEMANTIC RECORD            */
-char    *id;              /* For returning identifiers  */
+{
+char    *id;              
 }
 /* Line 1529 of yacc.c.  */
-#line 149 "y.tab.h"
+#line 151 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
