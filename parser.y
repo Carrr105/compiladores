@@ -160,13 +160,146 @@ asignacion: ID EQUALS exp SEMICOLON
         ;
 
 exp: termino
-    | termino PLUS exp
-    | termino MINUS exp
+    | termino PLUS exp {
+                                        if(($1->type==int) && ($3->type==int)) {
+                                            uVal value;
+                                            value.i_value = 0;
+                                            $$ = createTempConstant(value, int);
+                                        }
+                                        else if(($1->type==float) && ($3->type==float)) {
+                                            uVal value;
+                                            value.r_value = 0;
+                                            $$ = createTempConstant(value, float);
+                                        }
+                                        else {
+                                            if($$->type == float) {
+                                                if(($1->type==float) && ($3->type==float)) {
+                                                    uVal value;
+                                                    value.r_value = 0;
+                                                    $$ = createTempConstant(value, float);
+                                                }
+                                                else if(($1->type==int) && ($3->type==float)) {
+                                                    uVal value;
+                                                    value.r_value = 0;
+                                                    $$ = createTempConstant(value, float);
+                                                }
+                                                else {
+                                                    printf("Error Line %d: Non compatible types\n" ,yylineno);
+                                                    exit(EXIT_FAILURE);
+                                                }
+                                            }
+                                            else {
+                                                printf("Error Line %d: Non compatible types\n" ,yylineno);
+                                                exit(EXIT_FAILURE);
+                                            }
+                                        }
+                                    }
+    | termino MINUS exp {
+                                        if(($1->type==int) && ($3->type==int)) {
+                                            uVal value;
+                                            value.i_value = 0;
+                                            $$ = createTempConstant(value, int);
+                                        }
+                                        else if(($1->type==float) && ($3->type==float)) {
+                                            uVal value;
+                                            value.r_value = 0;
+                                            $$ = createTempConstant(value, float);
+                                        }
+                                        else {
+                                            if($$->type == float) {
+                                                if(($1->type==float) && ($3->type==int)){
+                                                    uVal value;
+                                                    value.r_value = 0;
+                                                    $$ = createTempConstant(value, float);
+                                                }
+                                                else if(($1->type==int) && ($3->type==float)){
+                                                    uVal value;
+                                                    value.r_value = 0;
+                                                    $$ = createTempConstant(value, float);
+                                                }
+                                                else{
+                                                    printf("Error Line %d: Non compatible types\n" ,yylineno);
+                                                    exit(EXIT_FAILURE);
+                                                }
+                                            }
+                                        }
+                                    }
     ;
 
 termino: factor
-    | factor MULTIPLY termino
-    | factor DIVIDE termino
+    | factor MULTIPLY termino {
+                                    if(($1->type==int) && ($3->type==int)) {
+                                        uVal value;
+                                        value.i_value = $1->value.i_value * $3->value.i_value;
+                                        $$ = createTempConstant(value, int);
+                                    }
+                                    else if(($1->type==float) && ($3->type==float)) {
+                                        uVal value;
+                                        value.r_value = $1->value.r_value * $3->value.r_value;
+                                        $$ = createTempConstant(value, float);
+                                    }
+                                    else {
+                                        if(($1->type==float) && ($3->type==int)){
+                                            uVal value;
+                                            value.r_value = $1->value.r_value * $3->value.i_value;
+                                            $$ = createTempConstant(value, float);
+                                        }
+                                        else if(($1->type==int) && ($3->type==float)){
+                                            uVal value;
+                                            value.r_value = 0;
+                                            value.r_value = $1->value.i_value * $3->value.r_value;
+                                            $$ = createTempConstant(value, float);
+                                        }
+                                        else{
+                                            printf("Error %d: Types are not compatible\n" ,yylineno);
+                                            exit(EXIT_FAILURE);
+                                        }
+                                    }
+                                }
+    | factor DIVIDE termino {
+                                    if(($1->type==int) && ($3->type==int)) {
+                                        uVal value;
+                                        value.i_value = 0;
+                                        if($3->value.i_value == 0){
+                                            printf("Error %d: Division by zero\n" ,yylineno);
+                                            exit(EXIT_FAILURE);
+                                        }
+                                        $$ = createTempConstant(value, int);
+                                    }
+                                    else if(($1->type==float) && ($3->type==float)) {
+                                        uVal value;
+                                        value.r_value = 0;
+                                        if($3->value.r_value == 0.0){
+                                            printf("Error Line %d: Division by zero\n" ,yylineno);
+                                            exit(EXIT_FAILURE);
+                                        }
+                                        $$ = createTempConstant(value, float);
+                                    }
+                                    else {
+                                        if(($1->type==float) && ($3->type==int)){
+                                            uVal value;
+                                            value.r_value = 0;
+                                            if($3->value.i_value == 0){
+                                                printf("Error %d: Division by zero\n" ,yylineno);
+                                                exit(EXIT_FAILURE);
+                                            }
+                                            $$ = createTempConstant(value, float);
+                                        }
+                                        else if(($1->type==int) && ($3->type==float)){
+                                            uVal value;
+                                            value.r_value = 0;
+                                            if($3->value.r_value == 0.0){
+                                                printf("Error %d: Division by zero\n" ,yylineno);
+                                                exit(EXIT_FAILURE);
+                                            }
+                                            $$ = createTempConstant(value, float);
+                                        }
+                                        else{
+                                            printf("Error %d: Non compatible types\n" ,yylineno);
+                                            exit(EXIT_FAILURE);
+                                        }
+                                      }
+                                }
     ;
 
 factor: ID OPENPARENTHESES params CLOSEPARENTHESES
