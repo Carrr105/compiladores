@@ -1,19 +1,6 @@
 %{
-  #include "SymbolTable.h" 
+  #include "SymT.h" 
   extern FILE* yyin;
-  void install ( char *sym_name, char *sym_type )
-{  symrec *s;
-   s = getsym (sym_name);
-   if (s == 0)
-        s = putsym (sym_name, sym_type);
-   else { 
-          printf( "%s is already defined\n", sym_name );
-   }
-}
-context_check( char *sym_name )
-{ if ( getsym( sym_name ) == 0 ) 
-     printf( "%s is an undeclared identifier\n", sym_name );
-}
   int yylex();
   void yyerror(const char *s);
 %}
@@ -34,9 +21,9 @@ char    *id;
 
 %%
 
-programa:  PROGRAM ID SEMICOLON vars funciones bloque
+programa:  PROGRAM ID SEMICOLON vars funciones bloque {printf("OK ! Good Grammar\n");}
     | PROGRAM ID SEMICOLON vars bloque
-    | PROGRAM ID SEMICOLON funciones bloque
+    | PROGRAM ID SEMICOLON funciones bloque 
     | PROGRAM ID SEMICOLON bloque
     ;
 
@@ -86,7 +73,7 @@ funciones: FUNCTION tipo ID OPENPARENTHESES params CLOSEPARENTHESES SEMICOLON
 vars: VARS tipo TWODOTS params SEMICOLON
     ;
 
-params: ID { install( $1, $<tipo>0 ); }
+params: ID {/* install( $1, $<tipo>0 ); */}
         | ID OPENBRACKET paramsP CLOSEBRACKET 
         | ID OPENBRACKET paramsP CLOSEBRACKET COMMA params
         | ID COMMA params
@@ -160,7 +147,7 @@ asignacion: ID EQUALS exp SEMICOLON
         ;
 
 exp: termino
-    | termino PLUS exp {
+    | termino PLUS exp {/*
                                         if(($1->type==int) && ($3->type==int)) {
                                             uVal value;
                                             value.i_value = 0;
@@ -192,9 +179,9 @@ exp: termino
                                                 printf("Error Line %d: Non compatible types\n" ,yylineno);
                                                 exit(EXIT_FAILURE);
                                             }
-                                        }
+                                        }*/
                                     }
-    | termino MINUS exp {
+    | termino MINUS exp {/*
                                         if(($1->type==int) && ($3->type==int)) {
                                             uVal value;
                                             value.i_value = 0;
@@ -222,12 +209,12 @@ exp: termino
                                                     exit(EXIT_FAILURE);
                                                 }
                                             }
-                                        }
+                                        }*/
                                     }
     ;
 
 termino: factor
-    | factor MULTIPLY termino {
+    | factor MULTIPLY termino {/*
                                     if(($1->type==int) && ($3->type==int)) {
                                         uVal value;
                                         value.i_value = $1->value.i_value * $3->value.i_value;
@@ -254,9 +241,9 @@ termino: factor
                                             printf("Error %d: Types are not compatible\n" ,yylineno);
                                             exit(EXIT_FAILURE);
                                         }
-                                    }
+                                    }*/
                                 }
-    | factor DIVIDE termino {
+    | factor DIVIDE termino {/*
                                     if(($1->type==int) && ($3->type==int)) {
                                         uVal value;
                                         value.i_value = 0;
@@ -298,7 +285,7 @@ termino: factor
                                             printf("Error %d: Non compatible types\n" ,yylineno);
                                             exit(EXIT_FAILURE);
                                         }
-                                      }
+                                      }*/
                                 }
     ;
 

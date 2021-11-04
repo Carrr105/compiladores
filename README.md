@@ -20,7 +20,7 @@ flex scanner.l
 bison -dy parser.y 
 ```
 ```
-gcc lex.yy.c y.tab.c -o mycompiler
+g++ lex.yy.c y.tab.c -o mycompiler
 ```
 ```
 ./mycompiler

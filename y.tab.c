@@ -170,21 +170,8 @@
 /* Copy the first part of user declarations.  */
 #line 1 "parser.y"
 
-  #include "SymbolTable.h" 
+  #include "SymT.h" 
   extern FILE* yyin;
-  void install ( char *sym_name, char *sym_type )
-{  symrec *s;
-   s = getsym (sym_name);
-   if (s == 0)
-        s = putsym (sym_name, sym_type);
-   else { 
-          printf( "%s is already defined\n", sym_name );
-   }
-}
-context_check( char *sym_name )
-{ if ( getsym( sym_name ) == 0 ) 
-     printf( "%s is an undeclared identifier\n", sym_name );
-}
   int yylex();
   void yyerror(const char *s);
 
@@ -209,12 +196,12 @@ context_check( char *sym_name )
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 21 "parser.y"
+#line 8 "parser.y"
 {
 char    *id;              
 }
 /* Line 193 of yacc.c.  */
-#line 218 "y.tab.c"
+#line 205 "y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -227,7 +214,7 @@ char    *id;
 
 
 /* Line 216 of yacc.c.  */
-#line 231 "y.tab.c"
+#line 218 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -570,18 +557,18 @@ static const yytype_int8 yyrhs[] =
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_uint16 yyrline[] =
 {
-       0,    37,    37,    38,    39,    40,    43,    44,    47,    48,
-      49,    52,    54,    56,    58,    60,    62,    64,    66,    68,
-      70,    72,    74,    76,    78,    80,    82,    86,    89,    90,
-      91,    92,    95,    96,    97,   100,   101,   102,   103,   106,
-     107,   108,   109,   110,   111,   112,   115,   116,   119,   122,
-     125,   128,   129,   130,   131,   134,   136,   138,   140,   141,
-     144,   145,   148,   149,   152,   153,   156,   157,   158,   159,
-     162,   163,   164,   167,   168,   169,   172,   173,   174,   175,
-     176,   179,   180,   181,   184,   185,   186,   187,   188,   189,
-     190
+       0,    24,    24,    25,    26,    27,    30,    31,    34,    35,
+      36,    39,    41,    43,    45,    47,    49,    51,    53,    55,
+      57,    59,    61,    63,    65,    67,    69,    73,    76,    77,
+      78,    79,    82,    83,    84,    87,    88,    89,    90,    93,
+      94,    95,    96,    97,    98,    99,   102,   103,   106,   109,
+     112,   115,   116,   117,   118,   121,   123,   125,   127,   128,
+     131,   132,   135,   136,   139,   140,   143,   144,   145,   146,
+     149,   150,   184,   216,   217,   246,   292,   293,   294,   295,
+     296,   299,   300,   301,   304,   305,   306,   307,   308,   309,
+     310
 };
 #endif
 
@@ -1644,14 +1631,172 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 28:
-#line 89 "parser.y"
-    { install( (yyvsp[(1) - (1)].id), (yyvsp[(-1) - (1)].tipo) ); }
+        case 2:
+#line 24 "parser.y"
+    {printf("OK ! Good Grammar\n");}
+    break;
+
+  case 28:
+#line 76 "parser.y"
+    {/* install( $1, $<tipo>0 ); */}
+    break;
+
+  case 71:
+#line 150 "parser.y"
+    {/*
+                                        if(($1->type==int) && ($3->type==int)) {
+                                            uVal value;
+                                            value.i_value = 0;
+                                            $$ = createTempConstant(value, int);
+                                        }
+                                        else if(($1->type==float) && ($3->type==float)) {
+                                            uVal value;
+                                            value.r_value = 0;
+                                            $$ = createTempConstant(value, float);
+                                        }
+                                        else {
+                                            if($$->type == float) {
+                                                if(($1->type==float) && ($3->type==float)) {
+                                                    uVal value;
+                                                    value.r_value = 0;
+                                                    $$ = createTempConstant(value, float);
+                                                }
+                                                else if(($1->type==int) && ($3->type==float)) {
+                                                    uVal value;
+                                                    value.r_value = 0;
+                                                    $$ = createTempConstant(value, float);
+                                                }
+                                                else {
+                                                    printf("Error Line %d: Non compatible types\n" ,yylineno);
+                                                    exit(EXIT_FAILURE);
+                                                }
+                                            }
+                                            else {
+                                                printf("Error Line %d: Non compatible types\n" ,yylineno);
+                                                exit(EXIT_FAILURE);
+                                            }
+                                        }*/
+                                    }
+    break;
+
+  case 72:
+#line 184 "parser.y"
+    {/*
+                                        if(($1->type==int) && ($3->type==int)) {
+                                            uVal value;
+                                            value.i_value = 0;
+                                            $$ = createTempConstant(value, int);
+                                        }
+                                        else if(($1->type==float) && ($3->type==float)) {
+                                            uVal value;
+                                            value.r_value = 0;
+                                            $$ = createTempConstant(value, float);
+                                        }
+                                        else {
+                                            if($$->type == float) {
+                                                if(($1->type==float) && ($3->type==int)){
+                                                    uVal value;
+                                                    value.r_value = 0;
+                                                    $$ = createTempConstant(value, float);
+                                                }
+                                                else if(($1->type==int) && ($3->type==float)){
+                                                    uVal value;
+                                                    value.r_value = 0;
+                                                    $$ = createTempConstant(value, float);
+                                                }
+                                                else{
+                                                    printf("Error Line %d: Non compatible types\n" ,yylineno);
+                                                    exit(EXIT_FAILURE);
+                                                }
+                                            }
+                                        }*/
+                                    }
+    break;
+
+  case 74:
+#line 217 "parser.y"
+    {/*
+                                    if(($1->type==int) && ($3->type==int)) {
+                                        uVal value;
+                                        value.i_value = $1->value.i_value * $3->value.i_value;
+                                        $$ = createTempConstant(value, int);
+                                    }
+                                    else if(($1->type==float) && ($3->type==float)) {
+                                        uVal value;
+                                        value.r_value = $1->value.r_value * $3->value.r_value;
+                                        $$ = createTempConstant(value, float);
+                                    }
+                                    else {
+                                        if(($1->type==float) && ($3->type==int)){
+                                            uVal value;
+                                            value.r_value = $1->value.r_value * $3->value.i_value;
+                                            $$ = createTempConstant(value, float);
+                                        }
+                                        else if(($1->type==int) && ($3->type==float)){
+                                            uVal value;
+                                            value.r_value = 0;
+                                            value.r_value = $1->value.i_value * $3->value.r_value;
+                                            $$ = createTempConstant(value, float);
+                                        }
+                                        else{
+                                            printf("Error %d: Types are not compatible\n" ,yylineno);
+                                            exit(EXIT_FAILURE);
+                                        }
+                                    }*/
+                                }
+    break;
+
+  case 75:
+#line 246 "parser.y"
+    {/*
+                                    if(($1->type==int) && ($3->type==int)) {
+                                        uVal value;
+                                        value.i_value = 0;
+                                        if($3->value.i_value == 0){
+                                            printf("Error %d: Division by zero\n" ,yylineno);
+                                            exit(EXIT_FAILURE);
+                                        }
+                                        $$ = createTempConstant(value, int);
+                                    }
+                                    else if(($1->type==float) && ($3->type==float)) {
+                                        uVal value;
+                                        value.r_value = 0;
+                                        if($3->value.r_value == 0.0){
+                                            printf("Error Line %d: Division by zero\n" ,yylineno);
+                                            exit(EXIT_FAILURE);
+                                        }
+                                        $$ = createTempConstant(value, float);
+                                    }
+                                    else {
+                                        if(($1->type==float) && ($3->type==int)){
+                                            uVal value;
+                                            value.r_value = 0;
+                                            if($3->value.i_value == 0){
+                                                printf("Error %d: Division by zero\n" ,yylineno);
+                                                exit(EXIT_FAILURE);
+                                            }
+                                            $$ = createTempConstant(value, float);
+                                        }
+                                        else if(($1->type==int) && ($3->type==float)){
+                                            uVal value;
+                                            value.r_value = 0;
+                                            if($3->value.r_value == 0.0){
+                                                printf("Error %d: Division by zero\n" ,yylineno);
+                                                exit(EXIT_FAILURE);
+                                            }
+                                            $$ = createTempConstant(value, float);
+                                        }
+                                        else{
+                                            printf("Error %d: Non compatible types\n" ,yylineno);
+                                            exit(EXIT_FAILURE);
+                                        }
+                                      }*/
+                                }
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1655 "y.tab.c"
+#line 1800 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1865,7 +2010,7 @@ yyreturn:
 }
 
 
-#line 197 "parser.y"
+#line 317 "parser.y"
 
 
 int main() {
