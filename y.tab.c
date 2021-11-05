@@ -195,14 +195,7 @@
 #endif
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE
-#line 8 "parser.y"
-{
-char    *id;              
-}
-/* Line 193 of yacc.c.  */
-#line 205 "y.tab.c"
-	YYSTYPE;
+typedef int YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 # define YYSTYPE_IS_TRIVIAL 1
@@ -214,7 +207,7 @@ char    *id;
 
 
 /* Line 216 of yacc.c.  */
-#line 218 "y.tab.c"
+#line 211 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -559,16 +552,16 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    24,    24,    25,    26,    27,    30,    31,    34,    35,
-      36,    39,    41,    43,    45,    47,    49,    51,    53,    55,
-      57,    59,    61,    63,    65,    67,    69,    73,    76,    77,
-      78,    79,    82,    83,    84,    87,    88,    89,    90,    93,
-      94,    95,    96,    97,    98,    99,   102,   103,   106,   109,
-     112,   115,   116,   117,   118,   121,   123,   125,   127,   128,
-     131,   132,   135,   136,   139,   140,   143,   144,   145,   146,
-     149,   150,   184,   216,   217,   246,   292,   293,   294,   295,
-     296,   299,   300,   301,   304,   305,   306,   307,   308,   309,
-     310
+       0,    21,    21,    22,    23,    24,    27,    28,    31,    32,
+      33,    36,    38,    40,    42,    44,    46,    48,    50,    52,
+      54,    56,    58,    60,    62,    64,    66,    70,    73,    74,
+      75,    76,    79,    80,    81,    84,    85,    86,    87,    90,
+      91,    92,    93,    94,    95,    96,    99,   100,   103,   106,
+     109,   112,   113,   114,   115,   118,   120,   122,   124,   125,
+     128,   129,   132,   133,   136,   137,   140,   141,   142,   143,
+     146,   147,   181,   213,   214,   243,   289,   290,   291,   292,
+     293,   296,   297,   298,   301,   302,   303,   304,   305,   306,
+     307
 };
 #endif
 
@@ -1632,17 +1625,17 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 24 "parser.y"
+#line 21 "parser.y"
     {printf("OK ! Good Grammar\n");}
     break;
 
   case 28:
-#line 76 "parser.y"
+#line 73 "parser.y"
     {/* install( $1, $<tipo>0 ); */}
     break;
 
   case 71:
-#line 150 "parser.y"
+#line 147 "parser.y"
     {/*
                                         if(($1->type==int) && ($3->type==int)) {
                                             uVal value;
@@ -1680,7 +1673,7 @@ yyreduce:
     break;
 
   case 72:
-#line 184 "parser.y"
+#line 181 "parser.y"
     {/*
                                         if(($1->type==int) && ($3->type==int)) {
                                             uVal value;
@@ -1714,7 +1707,7 @@ yyreduce:
     break;
 
   case 74:
-#line 217 "parser.y"
+#line 214 "parser.y"
     {/*
                                     if(($1->type==int) && ($3->type==int)) {
                                         uVal value;
@@ -1747,7 +1740,7 @@ yyreduce:
     break;
 
   case 75:
-#line 246 "parser.y"
+#line 243 "parser.y"
     {/*
                                     if(($1->type==int) && ($3->type==int)) {
                                         uVal value;
@@ -1796,7 +1789,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1800 "y.tab.c"
+#line 1793 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2010,7 +2003,7 @@ yyreturn:
 }
 
 
-#line 317 "parser.y"
+#line 314 "parser.y"
 
 
 int main() {
